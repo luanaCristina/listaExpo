@@ -10,6 +10,7 @@ export default function AppList() {
     </View>
   );
 }
+
  
 const styles = StyleSheet.create({
   container: {
