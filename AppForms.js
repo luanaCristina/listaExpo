@@ -1,26 +1,46 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import React, {useState} from 'react';
  
-export default function AppForms() {
-  return (
-    <View style={styles.container}>
-      <Text style ={styles.title}>Item para comprar</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
+export default function AppForms({navigation}) {
+
+  const [descricao, setDescricao] = useState('');
+  const [quantidade, setQuantidade] = useState('');
+
+  function mudancaDescricao(descricao){
+    setDescricao(descricao);
+  }
+
+  function mudancaQuantidade(quantidade){
+    setQuantidade(quantidade);
+  }
+
+  function pressionarBotao(){
+    console.log({id: new Date().getTime(), descricao, quantidade})
+    navigation.navigate("AppList")
+  }
+  return(
+    <View>
+      <TextInput 
         style={styles.input}
-        placeholder='Digite a quantidade'
-        keyboardType={'numeric'}
-        clearButtonMode='always'
-        />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Salvar</Text>
-        </TouchableOpacity>
-      </View>
-      <StatusBar style="light" />
+        onChangeText={mudancaDescricao}
+        placeholder="O que está faltando em casa?"
+        clearButtonMode='always'></TextInput>
+
+      <TextInput 
+          style={styles.input}
+          onChangeText={mudancaQuantidade}
+          placeholder="Digite a quantidade"
+          keyboardType={'numeric'}
+          clearButtonMode='always'>
+        </TextInput>
     </View>
-  );
+  )
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {
