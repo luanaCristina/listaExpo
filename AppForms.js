@@ -1,7 +1,7 @@
-import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage"
  
 export default function AppForms({navigation}) {
 
@@ -16,9 +16,16 @@ export default function AppForms({navigation}) {
     setQuantidade(quantidade);
   }
 
-  function pressionarBotao(){
-    console.log({id: new Date().getTime(), descricao, quantidade})
-    navigation.navigate("AppList")
+  async function pressionarBotao(){
+   const listItem = {id: new Date().getTime(), descricao, quantidade:parseInt(quantidade)};
+   let saveItems = [];
+   const response = await AsyncStorage.getItem('items');
+
+   if(response) saveItems = JSON.parse(response);
+   saveItems.push(listItem);
+
+   await AsyncStorage.setItem('items', JSON.stringify(saveItems))
+   navigation.navigate("AppList", listItem);
   }
   return(
     <View>
@@ -34,14 +41,13 @@ export default function AppForms({navigation}) {
           placeholder="Digite a quantidade"
           keyboardType={'numeric'}
           clearButtonMode='always'>
-        </TextInput>
+       </TextInput>
+       <TouchableOpacity style={styles.button} onPress={pressionarBotao}>
+          <Text style = {styles.buttonText}>Salvar</Text>
+       </TouchableOpacity>
     </View>
   )
 }
-
-
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -85,7 +91,7 @@ const styles = StyleSheet.create({
     elevation: 20,
     shadowOpacity: 20,
     shadowColor: '#ccc',
-  },
+  } ,
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
