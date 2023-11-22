@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import Database from './Database'
 
 export default function AppItem(props){
@@ -9,11 +9,32 @@ export default function AppItem(props){
         props.navigation.navigate("AppForms", item);
     }
 
+function handleDeletePress(){ 
+    Alert.alert(
+        "Atenção",
+        "Você tem certeza que deseja excluir este item?",
+        [
+            {
+            text: "Não",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+            },
+            { text: "Sim", onPress: () => {
+                    Database.deletarItem(props.id)
+                        .then(response => props.navigation.navigate("AppList", {id: props.id}));
+                }
+            }
+        ],
+        { cancelable: false }
+        );
+}
+
     return(
         <View style={styles.container}>
             <Text style={styles.textItem}>{props.item}</Text>
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.deleteButton} >
+                <TouchableOpacity style={styles.deleteButton} 
+                onPress={handleDeletePress}>
                     <Text style={styles.buttonText}>X</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.editButton} 

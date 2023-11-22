@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
+//import AsyncStorage from "@react-native-async-storage/async-storage"
 import Database from './Database'; 
 
 export default function AppForms({route, navigation}) {
@@ -25,29 +25,37 @@ export default function AppForms({route, navigation}) {
 
   async function pressionarBotao(){
    const listItem = { descricao, quantidade:parseInt(quantidade)};
-   Database.saveItem(listItem)
+   Database.saveItem(listItem, id)
    .then(response => navigation.navigate("AppList", listItem));
   }
   return(
-    <View>
+    <View style={styles.container}> 
+    <Text style={styles.title}>Item para comprar</Text>
+    <View style={styles.inputContainer}>
       <TextInput 
         style={styles.input}
         onChangeText={mudancaDescricao}
         placeholder="O que está faltando em casa?"
-        clearButtonMode='always'></TextInput>
+        clearButtonMode='always'
+        value={descricao}></TextInput>
 
       <TextInput 
           style={styles.input}
           onChangeText={mudancaQuantidade}
           placeholder="Digite a quantidade"
           keyboardType={'numeric'}
-          clearButtonMode='always'>
+          clearButtonMode='always'
+          value={quantidade.toString()}>
        </TextInput>
        <TouchableOpacity style={styles.button} onPress={pressionarBotao}>
+       <View style={styles.buttonContainer}>
           <Text style = {styles.buttonText}>Salvar</Text>
+        </View>
        </TouchableOpacity>
     </View>
-  )
+    <StatusBar style="light" />
+    </View>
+  );
 }
 const styles = StyleSheet.create({
   container: {
@@ -93,8 +101,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 20,
     shadowColor: '#ccc',
   } ,
+  buttonContainer: {
+    flexDirection: "row"
+  },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    marginLeft: 10,
+        fontSize: 18,
+        color: '#fff',
+        fontWeight: 'bold',
   }
 });
