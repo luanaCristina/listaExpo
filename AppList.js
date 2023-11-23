@@ -27,12 +27,12 @@ return (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D93600',
+    backgroundColor: '#8B008B',
     alignItems: 'center',
     justifyContent: 'center'
   },
   title: {
-    color: '#fff',
+    color: '#7CFC00',
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 50,
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     alignItems: 'stretch',
-    backgroundColor: '#fff'
+    backgroundColor: '#7CFC00'
   },
 });
