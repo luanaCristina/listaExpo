@@ -12,6 +12,8 @@ npm install
 4. Para rodar o projeto:
 npm run start
 
+5. Quando aparecer o Qr Code no terminal abra o seu aplicativo Expo Go e leia o Qr Code para rodar o aplicativo no seu celular.
+
 Se desejar instalar alguma das bibliotecas use:
 npx ou npm.
 Exemplo:
