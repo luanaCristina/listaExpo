@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 //import AsyncStorage from "@react-native-async-storage/async-storage"
+import { Feather as Icon } from 'react-native-vector-icons';
 import Database from './Database'; 
 
 export default function AppForms({route, navigation}) {
@@ -48,10 +49,16 @@ export default function AppForms({route, navigation}) {
           value={quantidade.toString()}>
        </TextInput>
        <TouchableOpacity style={styles.button} onPress={pressionarBotao}>
+                    <View style={styles.buttonContainer}>
+                        <Icon name="save" size={22} color="white" />
+                        <Text style={styles.buttonText}>Salvar</Text>
+                    </View>
+      </TouchableOpacity>
+       {/* <TouchableOpacity style={styles.button} onPress={pressionarBotao}>
        <View style={styles.buttonContainer}>
           <Text style = {styles.buttonText}>Salvar</Text>
         </View>
-       </TouchableOpacity>
+       </TouchableOpacity> */}
     </View>
     <StatusBar style="light" />
     </View>
